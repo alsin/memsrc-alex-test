@@ -12,12 +12,14 @@
             <span>Projects</span>
         </li>
         <li>
-            <a href="#"
-               class="dropdown-toggle"
-               data-toggle="dropdown"
-               role="button"
+            <a href="${createLink(action: 'index', controller: 'setup')}"
                aria-haspopup="true"
                aria-expanded="false">Setup
+            </a>
+        </li>
+        <li>
+            <a href="/admin/dbconsole">
+                H2 DB Console
             </a>
         </li>
     </content>

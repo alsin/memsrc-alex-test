@@ -15,44 +15,28 @@ class ConfigService {
     }
 
     def modifyMemsourceAccountLogin(String login) {
-        def config = Config.get(1)
-        if (!config) {
-            config = new Config(memsourceAccountLogin: login)
-        }  else {
-            config.setMemsourceAccountLogin(login)
-        }
-        config.save()
+        return modifyMemsourceAccountConfig([memsourceAccountLogin: login])
     }
 
     def modifyMemsourceAccountPassword(String password) {
-        def config = Config.get(1)
-        if (!config) {
-            config = new Config(memsourceAccountPassword: password)
-        }  else {
-            config.setMemsourceAccountPassword(password)
-        }
-        config.save()
+        return modifyMemsourceAccountConfig([memsourceAccountPassword: password])
     }
 
     def modifyMemsourceSessionToken(String token) {
-        def config = Config.get(1)
-        if (!config) {
-            config = new Config(memsourceSessionToken: token)
-        }  else {
-            config.setMemsourceSessionToken(token)
-        }
-        config.save()
+        return modifyMemsourceAccountConfig([memsourceSessionToken: token])
     }
 
-    def modifyMemsourceAccountConfig(String login, String password, String token) {
+    def modifyMemsourceAccountLogin(String login, String password) {
+        return modifyMemsourceAccountConfig([memsourceAccountLogin: login,
+                                             memsourceAccountPassword: password])
+    }
+
+    def modifyMemsourceAccountConfig(Map props) {
         def config = Config.get(1)
         if (!config) {
-            config = new Config(memsourceAccountLogin: login, memsourceAccountPassword: password,
-                    memsourceSessionToken: token)
+            config = new Config(props)
         }  else {
-            config.setMemsourceAccountLogin(login)
-            config.setMemsourceAccountPassword(password)
-            config.setMemsourceSessionToken(token)
+            config.properties = props
         }
 
         config.save()

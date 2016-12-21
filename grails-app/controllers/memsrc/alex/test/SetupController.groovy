@@ -13,7 +13,8 @@ class SetupController {
     ConfigService configService
 
     def index() {
-        render(view: "config")
+        def account = configService.getMemsourceAccountConfig()
+        render(view: "/config", model: [userName: account ? account.memsourceAccountLogin : null])
     }
 
     /**
@@ -21,11 +22,18 @@ class SetupController {
      *
      * @return
      */
-    def modifyMemsourceCredentials() {
+    def modify() {
         def login = params.login
         def password = params.password
-
-        configService.modifyConfig(login, password)
+        log.info("SetupController.modify() called with params: ${params}")
+        configService.modifyMemsourceAccountLogin(login, password)
+        log.info("Memsource credentials updated!")
+        render([status: "OK"] as JSON)
     }
 
+    def handleException(Exception e) {
+        log.error("Exception occurred: ${e.getMessage()}")
+        response.status = 500
+        render([status: "FAILED", errorCode: "ConfigFailure", errorDescription: e.getMessage()] as JSON)
+    }
 }
