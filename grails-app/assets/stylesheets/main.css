@@ -162,9 +162,28 @@ img {
 .nav li.dropdown.open ul.dropdown-menu {
     background-color: #4D8618;
 }
+
+.navbar-nav>li.active>span {
+    color: #481800 !important;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    line-height: 20px;
+    display: block;
+    /*margin: 7.5px -15px;*/
+    /*margin-top: 7px;*/
+    font-size: 20px;
+}
+
 .navbar-brand {
     color: #ffffff !important;
 }
+
+.navbar-text {
+    color: #eeeeee !important;
+}
+
 /* CREATE/EDIT FORMS AND SHOW PAGES */
 
 fieldset,

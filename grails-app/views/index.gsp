@@ -8,6 +8,9 @@
 </head>
 <body>
     <content tag="nav">
+        <li class="active">
+            <span>Projects</span>
+        </li>
         <li>
             <a href="#"
                class="dropdown-toggle"
@@ -16,9 +19,6 @@
                aria-haspopup="true"
                aria-expanded="false">Setup
             </a>
-        </li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Artefacts <span class="caret"></span></a>
         </li>
     </content>
 
