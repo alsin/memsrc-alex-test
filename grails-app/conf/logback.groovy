@@ -21,20 +21,17 @@ appender('STDOUT', ConsoleAppender) {
                         '%m%n%wex' // Message
     }
 }
-// define the USER_HOME variable setting its value
-// to that of the "user.home" system property
+
 def USER_HOME = System.getProperty("user.home")
 
 appender("FILE", FileAppender) {
-    // make use of the USER_HOME variable
-    file = "${USER_HOME}/memsource-alex.log"
+    file = "${USER_HOME}/memsrc-alex-test.log"
     append = true
     encoder(PatternLayoutEncoder) {
         pattern = "%level %logger - %msg%n"
     }
 }
 
-//root(INFO, ["FILE"])
 root(INFO, ['STDOUT', 'FILE'])
 
 //def targetDir = BuildSettings.TARGET_DIR
@@ -50,5 +47,5 @@ root(INFO, ['STDOUT', 'FILE'])
 //    root(ERROR, ['STDOUT', 'FULL_STACKTRACE'])
 //}
 //else {
-//    root(INFO, ['STDOUT', 'FILE'])
+//    root(ERROR, ['STDOUT'])
 //}
