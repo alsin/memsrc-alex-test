@@ -11,7 +11,8 @@ class ConfigService {
     GrailsApplication grailsApplication
 
     def getMemsourceAccountConfig() {
-        return Config.read(1)
+        def configs = Config.getAll()
+        return configs ? configs[0] : null
     }
 
     def modifyMemsourceAccountLogin(String login) {
@@ -32,13 +33,12 @@ class ConfigService {
     }
 
     def modifyMemsourceAccountConfig(Map props) {
-        def config = Config.get(1)
+        def config = getMemsourceAccountConfig()
         if (!config) {
             config = new Config(props)
         }  else {
             config.properties = props
         }
-
         config.save()
         return config
     }

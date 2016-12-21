@@ -20,12 +20,32 @@ if (typeof jQuery !== 'undefined') {
     })(jQuery);
 }
 
-//$('#submitMemsrcCredsBtn').on('click', function () {
-//    var $btn = $(this).button('saving..')
-//
-//    // business logic...
-//    $btn.button('reset')
-//});
+$('#loadProjectsBtn').on('click', function () {
+    var $btn = $(this).button('loading')
+
+    var req = $.post( '/projects');
+
+    req.done(function( data ) {
+        $( "#alertMsg" ).empty().text("Loaded: " + data.length + " rows");
+        $("#projectsTableBody").empty();
+        $.each(data, function (i, item) {
+            $('<tr>').append(
+                $('<td>').text(i),
+                $('<td>').text(item.name),
+                $('<td>').text(item.status),
+                $('<td>').text(item.sourceLang),
+                $('<td>').text(item.targetLangs ? item.targetLangs.join(', ') : '')
+            ).appendTo('#projectsTableBody');
+        });
+        $( "#statusDiv" ).removeClass('alert-danger').addClass('alert-success').show();
+    }).fail(function( data ) {
+        $( "#alertMsg" ).empty().text(data.responseJSON.errorDescription);
+        $( "#statusDiv").removeClass('alert-success').addClass('alert-danger').show();
+    }).always(function () {
+        $btn.button('reset')
+    });
+
+});
 
 $( "#submitMemsrcCredsForm" ).submit(function( event ) {
 

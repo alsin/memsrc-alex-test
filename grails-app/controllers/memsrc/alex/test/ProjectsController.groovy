@@ -17,9 +17,15 @@ class ProjectsController {
     def index() {
         def config = configService.getMemsourceAccountConfig()
         if (!config) {
-            config = configService.modifyMemsourceAccountConfig("alex_xela", "memsource", "")
-            assert config != null
-//            [errorCode: "NotLoggedIn"]
+//            config = configService.modifyMemsourceAccountConfig("alex_xela", "memsource", "")
+//            assert config != null
+            log.error("Unauthorized! Please, check your Memsource credentials setup.")
+            response.status = 401;//Unauthorized
+            render([status: "FAILED",
+                    errorCode: "NotLoggedIn",
+                    errorDescription: "No Memsource account configured. Please do so on Setup page."
+            ] as JSON)
+            return
         }
         if (!config.memsourceSessionToken) {
             log.info("Unauthorized, need to log in first..")
@@ -46,8 +52,10 @@ class ProjectsController {
         respond projectsJson
     }
 
-    def list() {
-        respond {code: 'OK'}
+    def handleException(Exception e) {
+        log.error("Exception occurred in projects controller: ${e.getMessage()}")
+        response.status = 500
+        render([status: "FAILED", errorCode: "ProjectsLoadFailure", errorDescription: e.getMessage()] as JSON)
     }
 
 }

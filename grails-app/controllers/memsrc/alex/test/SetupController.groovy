@@ -32,8 +32,9 @@ class SetupController {
     }
 
     def handleException(Exception e) {
-        log.error("Exception occurred: ${e.getMessage()}")
+        log.error("Exception occurred in setup controller: ${e.getMessage()}")
         response.status = 500
         render([status: "FAILED", errorCode: "ConfigFailure", errorDescription: e.getMessage()] as JSON)
     }
+
 }

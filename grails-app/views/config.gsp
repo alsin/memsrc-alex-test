@@ -18,15 +18,18 @@
         <span>Setup</span>
     </li>
     <li>
-        <a href="/admin/dbconsole">
+        <a href="/admin/dbconsole" target="_blank">
             H2 DB Console
         </a>
     </li>
 </content>
 
 <div class="container-fluid">
+    <div class="row">
+        <h1>Setup Page</h1>
+    </div>
     <div class="row alert-row">
-        <div class="alert alert-dismissable" role="alert" id="statusDiv" style="display: none;">
+        <div class="alert" role="alert" id="statusDiv" style="display: none;">
             <span id="alertMsg"></span>
         </div>
     </div>
